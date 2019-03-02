@@ -23,3 +23,16 @@ def hook():
 
 
 hooks.addHook('cardAnswered', hook)
+
+
+
+
+class ScheduleDialog(QDialog):
+    def __init__(self, mw):
+        super().__init__(mw)
+        self.show()
+
+
+action = QAction("Autolearn schedule", aqt.mw)
+action.triggered.connect(lambda: ScheduleDialog(aqt.mw))
+aqt.mw.form.menuTools.addAction(action)
