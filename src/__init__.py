@@ -50,6 +50,7 @@ class ScheduleDialog(QDialog):
         minutes = self.spinMinutes.value()
         seconds = self.spinSeconds.value()
         self.hook.delay = (minutes * 60 + seconds) * 1000
+        self.close()
 
 
 hook = Hook()
