@@ -6,7 +6,6 @@ from aqt.qt import *
 POP_EVERY_MS = 5 * 60 * 1000
 
 
-
 def hide_mw():
     aqt.mw.showMinimized()
 
@@ -27,8 +26,9 @@ class Hook:
 
 
 class ScheduleDialog(QDialog):
-    def __init__(self, mw):
+    def __init__(self, mw, hook):
         super().__init__(mw)
+        self.hook = hook
 
         layout = QFormLayout(self)
 
@@ -49,18 +49,12 @@ class ScheduleDialog(QDialog):
     def onOk(self):
         minutes = self.spinMinutes.value()
         seconds = self.spinSeconds.value()
-        setupHook((minutes * 60 + seconds) * 1000)
-        print("Setup hook with", (minutes * 60 + seconds) * 1000, "ms")
+        self.hook.delay = (minutes * 60 + seconds) * 1000
 
 
 hook = Hook()
-
 hooks.addHook('cardAnswered', hook)
 
-
 action = QAction("Autolearn schedule", aqt.mw)
-action.triggered.connect(lambda: ScheduleDialog(aqt.mw))
+action.triggered.connect(lambda: ScheduleDialog(aqt.mw, hook))
 aqt.mw.form.menuTools.addAction(action)
-
-
-setupHook()
