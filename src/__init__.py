@@ -1,9 +1,25 @@
+import os
+import pickle
+
 from anki import hooks
 import aqt
 from aqt.qt import *
 
 
 POP_EVERY_MS = 5 * 60 * 1000
+SETTINGS_PATH = os.path.expanduser("~/.anki_autolearn.settings")
+
+
+def save_settings(delay, path=SETTINGS_PATH):
+    with open(path, 'wb') as fd:
+        pickle.dump(delay, fd)
+
+
+def load_settings(path=SETTINGS_PATH):
+    if os.path.isfile(path):
+        with open(path, 'rb') as fd:
+            return pickle.load(fd)
+    return POP_EVERY_MS
 
 
 def hide_mw():
@@ -17,7 +33,7 @@ def restore_mw():
 
 
 class Hook:
-    def __init__(self, delay=POP_EVERY_MS):
+    def __init__(self, delay):
         self.delay = delay
 
     def __call__(self):
@@ -50,10 +66,11 @@ class ScheduleDialog(QDialog):
         minutes = self.spinMinutes.value()
         seconds = self.spinSeconds.value()
         self.hook.delay = (minutes * 60 + seconds) * 1000
+        save_settings(self.hook.delay)
         self.close()
 
 
-hook = Hook()
+hook = Hook(load_settings())
 hooks.addHook('cardAnswered', hook)
 
 action = QAction("Autolearn schedule", aqt.mw)
