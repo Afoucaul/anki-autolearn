@@ -40,8 +40,8 @@ class ScheduleDialog(QDialog):
         layout.addRow(QLabel("Seconds"), self.spinSeconds)
         layout.addRow(self.okButton)
 
-        self.spinMinutes.setValue(5)
-        self.spinSeconds.setValue(0)
+        self.spinMinutes.setValue(self.hook.delay // 60000)
+        self.spinSeconds.setValue(self.hook.delay // 1000 % 60)
         self.okButton.clicked.connect(self.onOk)
 
         self.show()
