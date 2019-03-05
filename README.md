@@ -23,7 +23,6 @@ First, clone this repo, then open Anki, go to `Tools > Add-ons > View files` to 
 ## How to
 
 The configuration of this add-on is plain simple and straightforward.
-You'll find in the `Tools` menu a `Autolearn` line, that will open the following dialog:
-
+You'll find in the `Tools` menu a `Autolearn` line, that will open a simple dialog.
 There, you can set up the delay between two appearances from Anki.
 That's it!
