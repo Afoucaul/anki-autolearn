@@ -2,12 +2,26 @@ import os
 import pickle
 
 from anki import hooks
+from anki import sched
+
+
+# Patch scheduler so that an even is fired whenever a card is answered
+true_answerCard = sched.Scheduler.answerCard
+def monitored_answerCard(*args, **kwargs):
+    result = true_answerCard(*args, **kwargs)
+    hooks.runHook('cardAnswered')
+    return result
+
+sched.Scheduler.answerCard = monitored_answerCard
+
+
 import aqt
 from aqt.qt import *
 
 
 POP_EVERY_MS = 5 * 60 * 1000
 SETTINGS_PATH = os.path.expanduser("~/.anki_autolearn.settings")
+
 
 
 def save_settings(delay, path=SETTINGS_PATH):
@@ -23,6 +37,7 @@ def load_settings(path=SETTINGS_PATH):
 
 
 def hide_mw():
+    print("yeah")
     aqt.mw.showMinimized()
 
 
