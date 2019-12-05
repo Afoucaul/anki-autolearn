@@ -37,7 +37,6 @@ def load_settings(path=SETTINGS_PATH):
 
 
 def hide_mw():
-    print("yeah")
     aqt.mw.showMinimized()
 
 
