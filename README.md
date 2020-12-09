@@ -9,14 +9,7 @@ As soon as you answered a card, Anki will vanish and let you work, only to appea
 
 ## Installation
 
-As for now, this add-on relies on a non-standard hook, `'cardAnswered'`, fired whenever you answer a card.
-This is the only difference with the official Anki branch, so I hope I can have it merged soon.
-For the time being, you will have to install Anki from my fork, at https://github.com/Afoucaul/anki.git.
-
-To do this, you just have to clone the said repo, and run `sudo make install` in it.
-If you have any trouble with this step, please open an issue at the official Anki repo; I'll be glad to help there.
-
-Once this is done, you can install this add-on just like any other regular add-on.
+You can install this add-on just like any other regular add-on.
 First, clone this repo, then open Anki, go to `Tools > Add-ons > View files` to check the directory where add-ons are installed, and finally copy (or better, make a symlink) the `src` directory into the add-ons directory.
 
 
