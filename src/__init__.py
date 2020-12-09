@@ -4,6 +4,9 @@ import pickle
 from anki import hooks
 from anki import sched
 
+import aqt
+from aqt.qt import *
+
 
 # Patch scheduler so that an even is fired whenever a card is answered
 true_answerCard = sched.Scheduler.answerCard
@@ -13,10 +16,6 @@ def monitored_answerCard(*args, **kwargs):
     return result
 
 sched.Scheduler.answerCard = monitored_answerCard
-
-
-import aqt
-from aqt.qt import *
 
 
 POP_EVERY_MS = 5 * 60 * 1000
@@ -38,12 +37,12 @@ def load_settings(path=SETTINGS_PATH):
 
 def hide_mw():
     aqt.mw.showMinimized()
+    aqt.mw.hide()
 
 
 def restore_mw():
     aqt.mw.showNormal()
     aqt.mw.activateWindow()
-    aqt.mw.setFocus()
 
 
 class Hook:
